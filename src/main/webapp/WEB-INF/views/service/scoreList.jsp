@@ -12,10 +12,11 @@
 	
 	<c:forEach var="article" items="${list}" varStatus="num" >
 	
+	  ${article.num }
 	  ${article.name }
 	  ${article.kor }
 	  ${article.eng}
-	  <a href="delete?num=${num.index }">삭제</a>
+	  <a href="delete?num=${article.num}">삭제</a>
 	  <!-- 삭제는 원래 post방식이 정석!!!  -->
 	  <br/>
 	</c:forEach>

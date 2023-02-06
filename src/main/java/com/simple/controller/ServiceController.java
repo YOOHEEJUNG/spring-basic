@@ -11,30 +11,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.simple.command.ScoreVO;
+import com.simple.score.service.ScoreService;
 import com.simple.score.service.ScoreServiceImpl;
 
 @Controller
 @RequestMapping("/service")
 public class ServiceController {
-	
-	//1번
+
+	//1st
 	//ScoreServiceImpl service = new ScoreServiceImpl();
-
-	//2번 - service를 bean으로 생성 : 의존객체 자동주입
 	
-	//3번 - @Service로 빈으로 생성하고, 의존객체 자동 주입
+	//2nd - service를 bean으로 생성한다. 의존객체 자동주입
 	
-
-
-	
+	//3nd - @Service로 빈으로 생성하고. 의존객체 자동주입
 	@Autowired
-	@Qualifier("이름")
-	private ScoreServiceImpl service;
+	@Qualifier("xxx")
+	private ScoreService service; //인터페이스 타입 선언
 	
 	
-	
-	
-	// 화면 출력
+	//화면출력
 	@RequestMapping("/scoreRegist")
 	public String registView() {
 		return "service/scoreRegist";
@@ -43,27 +38,41 @@ public class ServiceController {
 	//폼요청
 	@RequestMapping(value="/regist", method=RequestMethod.POST)
 	public String regist(ScoreVO vo) {
+		//System.out.println(vo.toString() );
 		service.regist(vo);
 		
-//		System.out.println(vo.toString());
 		return "service/scoreResult";
 	}
 	
 	//목록화면
 	@RequestMapping("/scoreList")
 	public String scoreList(Model model) {
-		//data 조회
+		
+		//data조회
 		ArrayList<ScoreVO> list = service.getList();
 		model.addAttribute("list", list);
-//		System.out.println(list.toString());
+		
 		return "service/scoreList";
 	}
 	
-	
+	//삭제요청
 	@RequestMapping("/delete")
 	public String delete(@RequestParam("num") int num) {
 
 		service.delete(num);
-		return "redirect:/service/scoreList";
+		
+		return "redirect:/service/scoreList"; //삭제후에 목록으로
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
